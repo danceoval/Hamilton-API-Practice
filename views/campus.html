@@ -1,0 +1,26 @@
+{% extends './layout.html' %}
+{% block content %}
+<div class='well'>
+  <form method='POST' action='/regions'>
+    <div class='form-group'>
+      <input class='form-control' name='planet' placeholder='enter planet name' />
+    </div>
+    <button type='submit' class='btn btn-primary'>Create Campus</button>
+  </form>
+</div>
+
+{% for campus in campuses %}
+<div class='panel panel-default'>
+  <div class='panel panel-heading'>
+    {{ campus.name }}
+  </div>
+  <div class='panel-body'>
+    <ul class='list-group'>
+      {% for instructor in instructors %}
+      {% include './_listItem.html' with { text: instructor.name, addTo: 'Campus', instructor: intructor, campus: campus, hasIt: campus.hasInstructor(instructor.id), backTo: '/campus' } %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
